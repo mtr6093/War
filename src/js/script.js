@@ -53,7 +53,21 @@ function deal (){ // function that deals the deck to player1 and player2
 deal(shuffled)
 //console.log("Player1", player1Hand)
 //console.log("Player2", player2Hand)
-console.log(player1Hand[0])
+
+// for (let index = 0; index < 50; index++) {
+//   if (player1Hand.length==0 || player2Hand.length==0) {
+//     break;
+//   }
+//   else{
+//     play()
+//     // console.log(player1Hand.length)
+//     // console.log(player2Hand.length) 
+    
+
+//   }
+  
+// }
+
 let playedP1 = []
 let playedP2 = []
 
@@ -66,13 +80,56 @@ function play () {
   } 
   if (player2Hand.length>0) {
     playedP2.push((player2Hand)[0])
+    player2Hand.splice(0,1)
   } else if (player2Hand.length==0){
-    console.log("Player1 out of cards")
+    console.log("Player2 out of cards")
   } 
 }
-play()
 
-console.log("roundPlayed", playedP1)
-console.log(playedP1[0])
-console.log(playedP2[0])
-console.log(player1Hand[0])
+
+
+for (let index = 0; index < 50; index++) {
+  if (player1Hand.length==0 || player2Hand.length==0) {
+    break;
+  }
+  else{
+    play()
+    roundWinner()
+  }
+  
+}
+
+
+// console.log("roundPlayed", playedP1)
+//console.log(playedP1[0])
+//console.log(playedP2[0])
+console.log("p1", player1Hand[0])
+console.log("P2", player2Hand[0])
+//  console.log(playedP1[0]["score"])
+//  console.log(playedP2[0]["score"])
+
+
+function roundWinner () {
+  if (playedP1[0]["score"] > playedP2[0]["score"]) {
+    console.log("Player1 wins. player1 played ", playedP1[0], "and player 2 played ", playedP2[0])
+    player1Hand.push(playedP1[0])
+    player1Hand.push(playedP2[0])
+    playedP1.pop()
+    playedP2.pop()
+
+    console.log("player1 has "+ player1Hand.length + " cards remaining. Player 2 has " + player2Hand.length + "cards remaining.")
+  } else if (playedP2[0]["score"] > playedP1[0]["score"]) {
+    console.log("Player2 wins. player2 played ", playedP2[0], "and player 1 played", playedP1[0])
+    player2Hand.push(playedP2[0])
+    player2Hand.push(playedP2[0])
+    playedP1.pop()
+    playedP2.pop()
+    console.log("player2 has "+ player2Hand.length + " cards remaining. Player 1 has " + player1Hand.length + "cards remaining.")
+  } else if (playedP2[0]["score"] == playedP1[0]["score"]) {
+    console.log("It is a tie, War!")
+  }
+}
+
+
+// roundWinner()
+
