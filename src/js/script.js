@@ -15,10 +15,23 @@ let cards = []
 
 function create (){ //Function that creates complete deck (Card)
     for (let i=0; i<suits.length; i++) {
-    for (let j=0; j<ranks.length; j++) {
-         
-              cards.push(new Card(suits[i], ranks[j], j+2))
-          }
+      for (let j=0; j<ranks.length; j++) {
+         cards.push(new Card(suits[i], ranks[j], j+2))
+      }
     }
   }
   create()
+console.log(cards)
+
+let shuffled = [...cards]
+
+function shuffler(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+shuffler(shuffled)
+console.log("Shuffled", shuffled)
