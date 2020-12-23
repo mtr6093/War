@@ -21,7 +21,7 @@ function create (){ //Function that creates complete deck (Card)
     }
   }
   create()
-console.log(cards)
+//console.log(cards)
 
 let shuffled = [...cards]
 
@@ -35,3 +35,20 @@ function shuffler(array) {
 }
 shuffler(shuffled)
 console.log("Shuffled", shuffled)
+
+let player1Hand = []
+let player2Hand = []
+
+
+function deal (){
+  for (let i=0; i<shuffled.length; i++){
+    if ((i+2)%2==0) {
+      player1Hand.push(shuffled[i])
+    }
+    else {
+      player2Hand.push(shuffled[i])
+    }
+  }
+}
+deal(shuffled)
+console.log("Player", player1Hand)
