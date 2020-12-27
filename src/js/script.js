@@ -1,4 +1,6 @@
 console.log("hello!");
+let player1 = "M"  //prompt("Name of player 1?")
+let player2 = "T"  //prompt("Name of player 2?")
 
 class Card {  //Complete deck
     constructor (suit, rank, score) {
@@ -51,8 +53,8 @@ function deal (){ // function that deals the deck to player1 and player2
   }
 }
 deal(shuffled)
-console.log("Player1", player1Hand)
-console.log("Player2", player2Hand)
+// console.log("Player1", player1Hand)
+// console.log("Player2", player2Hand)
 
 // for (let index = 0; index < 50; index++) {
 //   if (player1Hand.length==0 || player2Hand.length==0) {
@@ -70,59 +72,60 @@ console.log("Player2", player2Hand)
 
 
 
-// let playedP1 = []
-// let playedP2 = []
+let playedP1 = []
+let playedP2 = []
+let warHand = []
+
+function play () {
+  if (player1Hand.length>0) {
+    playedP1.push((player1Hand)[0])
+    player1Hand.splice(0,1)
+    // console.log("PlayP1create", playedP1)
+  
+  } else if (player1Hand.length==0){
+    console.log("Player1 out of cards")
+  } 
+  if (player2Hand.length>0) {
+    playedP2.push((player2Hand)[0])
+    player2Hand.splice(0,1)
+    // console.log("PlayP2create", playedP2)
+  } else if (player2Hand.length==0){
+    console.log("Player2 out of cards")
+    
+  } 
+}
+
+
 
 // function play () {
-//   if (player1Hand.length>0) {
-//     playedP1.push((player1Hand)[0])
-//     player1Hand.splice(0,1)
-//     console.log("PlayP1create", playedP1)
-  
-//   } else if (player1Hand.length==0){
-//     console.log("Player1 out of cards")
+//   if (player1Hand.length==0){
+//     console.log("Player1 out of cards, player1 lose")
 //   } 
-//   if (player2Hand.length>0) {
-//     playedP2.push((player2Hand)[0])
-//     player2Hand.splice(0,1)
-//     console.log("PlayP2create", playedP2)
-//   } else if (player2Hand.length==0){
-//     console.log("Player2 out of cards")
-    
+  
+//   if (player2Hand.length==0){
+//     console.log("Player2 out of cards, player2 lose")
 //   } 
 // }
 
 
 
-function play () {
-  if (player1Hand.length==0){
-    console.log("Player1 out of cards, player1 lose")
-  } 
+// for (let index = 0; index < 50; index++) {
+//   if (player1Hand.length==0 || player2Hand.length==0) {
+//     break;
+//   }
+//   else{
+//     play()
+//     roundWinner()
+//   }
   
-  if (player2Hand.length==0){
-    console.log("Player2 out of cards, player2 lose")
-  } 
-}
+// }
 
-
-
-for (let index = 0; index < 50; index++) {
-  if (player1Hand.length==0 || player2Hand.length==0) {
-    break;
-  }
-  else{
-    play()
-    roundWinner()
-  }
-  
-}
-
-// play()
-// roundWinner()
-// play()
-// roundWinner()
-// play()
-// roundWinner()
+play()
+roundWinner()
+play()
+roundWinner()
+play()
+roundWinner()
 
 // console.log("roundPlayed", playedP1)
 //console.log(playedP1[0])
@@ -133,76 +136,156 @@ for (let index = 0; index < 50; index++) {
 //  console.log(playedP2[0]["score"])
 
 
+function roundWinner () {
+  if (playedP1[0]["score"] > playedP2[0]["score"]) {
+      console.log(player1, "wins.", player1,"played ", playedP1[0], "and",player2, "played ", playedP2[0])
+      player1Hand.push(playedP1[0])
+      player1Hand.push(playedP2[0])
+      console.log("P1 Win P1", playedP1)
+      console.log("P1 win P2", playedP2)
+      playedP1.pop()
+      playedP2.pop()
+      console.log(player1, "has", player1Hand.length, " cards remaining.", player2, "has ", player2Hand.length, "cards remaining.")
+  } else if (playedP2[0]["score"] > playedP1[0]["score"]) {
+      console.log(player2, "wins.", player2, "played ", playedP2[0], "and", player1, "played", playedP1[0])
+      player2Hand.push(playedP2[0])
+      player2Hand.push(playedP2[0])
+      console.log("P2 win P1", playedP1)
+      console.log("P2 win P2", playedP2)
+      playedP1.pop()
+      playedP2.pop()
+      console.log(player2, "has", player2Hand.length, "cards remaining.", player1, "has", player1Hand.length, "cards remaining.")
+  } else {
+      console.log("It is a tie", player2, ". played ", playedP2[0], "and", player1, "played", playedP1[0], ". War!")
+      warHand.push(playedP1[0])
+      warHand.push(playedP2[0])
+      playedP1.pop()
+      playedP2.pop()
+      warHand.push(player1Hand[0])
+      warHand.push(player1Hand[1])
+      warHand.push(player1Hand[2])
+      player1Hand.splice(0,3)
+      warHand.push(player2Hand[0])
+      warHand.push(player2Hand[1])
+      warHand.push(player2Hand[2])
+      player2Hand.splice(0,3)
+
+      console.log(player2, "has", player2Hand.length, "cards remaining.", player1, "has", player1Hand.length, "cards remaining.")
+      war()
+      // console.log("TieP1", playedP1)
+      // console.log("TieP2", playedP2)
+      
+  }
+}
+console.log("P1", playedP1)
+console.log("P2", playedP2)
+
 // function roundWinner () {
-//   if (playedP1[0]["score"] > playedP2[0]["score"]) {
-//       console.log("Player1 wins. player1 played ", playedP1[0], "and player 2 played ", playedP2[0])
-//       player1Hand.push(playedP1[0])
-//       player1Hand.push(playedP2[0])
-//       console.log("P1 Win P1", playedP1)
-//       console.log("P1 win P2", playedP2)
-//       playedP1.pop()
-//       playedP2.pop()
+//   if (player1Hand[0]["score"] > player2Hand[0]["score"]) {
+//       console.log("Player1 wins. player1 played ", player1Hand[0], "and player 2 played ", player2Hand[0])
+//       player1Hand.push(player1Hand.shift([0,1]))
+//       player2Hand.push(player1Hand[0])
+//       player2Hand.splice(0,1)
+//       console.log("W1P1", player1Hand[0])
+//       console.log("W1P2", player2Hand[0])
+//       // console.log("P1 win P2", playedP2)
+//       // playedP1.pop()
+//       // playedP2.pop()
 //       console.log("player1 has "+ player1Hand.length + " cards remaining. Player 2 has " + player2Hand.length + "cards remaining.")
-//   } else if (playedP2[0]["score"] > playedP1[0]["score"]) {
-//       console.log("Player2 wins. player2 played ", playedP2[0], "and player 1 played", playedP1[0])
-//       player2Hand.push(playedP2[0])
-//       player2Hand.push(playedP2[0])
-//       console.log("P2 win P1", playedP1)
-//       console.log("P2 win P2", playedP2)
-//       playedP1.pop()
-//       playedP2.pop()
+//   } else if (player2Hand[0]["score"] > player1Hand[0]["score"]) {
+//       console.log("Player2 wins. player2 played ", player2Hand[0], "and player 1 played", player1Hand[0])
+//       player2Hand.push(player2Hand.shift())
+//       player1Hand.push(player2Hand[0])
+//       player1Hand.splice(0,1)
+//       console.log("W2P1", player1Hand)
+//       console.log("W2P2", player2Hand)
+//       // console.log("P2 win P1", playedP1)
+//       // console.log("P2 win P2", playedP2)
+//       // playedP1.pop()
+//       // playedP2.pop()
 //       console.log("player2 has "+ player2Hand.length + " cards remaining. Player 1 has " + player1Hand.length + "cards remaining.")
 //   } else {
 //       console.log("It is a tie, War!")
 //       // war()
-//       console.log("TieP1", playedP1)
-//       console.log("TieP2", playedP2)
+//       // // console.log("TieP1", playedP1)
+//       // // console.log("TieP2", playedP2)
+//       return;
 //   }
 // }
-// console.log("P1", playedP1)
-// console.log("P2", playedP2)
 
-function roundWinner () {
-  if (player1Hand[0]["score"] > player2Hand[0]["score"]) {
-      console.log("Player1 wins. player1 played ", player1Hand[0], "and player 2 played ", player2Hand[0])
-      player1Hand.push(player1Hand.shift())
-      player2Hand.push(player1Hand[0])
-      player2Hand.splice(0,1)
-      console.log("W1P1", player1Hand)
-      console.log("W1P2", player2Hand)
-      // console.log("P1 win P2", playedP2)
-      // playedP1.pop()
-      // playedP2.pop()
-      console.log("player1 has "+ player1Hand.length + " cards remaining. Player 2 has " + player2Hand.length + "cards remaining.")
-  } else if (player2Hand[0]["score"] > player1Hand[0]["score"]) {
-      console.log("Player2 wins. player2 played ", player2Hand[0], "and player 1 played", player1Hand[0])
-      player2Hand.push(player2Hand.shift())
-      player1Hand.push(player2Hand[0])
-      player1Hand.splice(0,1)
-      console.log("W2P1", player1Hand)
-      console.log("W2P2", player2Hand)
-      // console.log("P2 win P1", playedP1)
-      // console.log("P2 win P2", playedP2)
-      // playedP1.pop()
-      // playedP2.pop()
-      console.log("player2 has "+ player2Hand.length + " cards remaining. Player 1 has " + player1Hand.length + "cards remaining.")
-  } else {
-      console.log("It is a tie, War!")
-      // war()
-      // console.log("TieP1", playedP1)
-      // console.log("TieP2", playedP2)
-  }
-}
+
+
 // console.log("P1", playedP1)
 // console.log("P2", playedP2)
 // roundWinner()
-// let warHand = []
 
-// function war() {
-//     warHand.push(player1Hand[0, 1, 2])
-//     warHand.push(player2Hand[0, 1, 2])
-//     console.log(warHand)
 
+function war() {
+    console.log('Warhand', warHand)
+    play()
+    warWinner()
 
     
+    
+}
+
+// function warPlay() {
+// if (player1Hand.length>0) {
+//   playedP1.push((player1Hand)[0])
+//   player1Hand.splice(0,1)
+//   // console.log("PlayP1create", playedP1)
+
+// } else if (player1Hand.length==0){
+//   console.log("Player1 out of cards")
+// } 
+// if (player2Hand.length>0) {
+//   playedP2.push((player2Hand)[0])
+//   player2Hand.splice(0,1)
+//   // console.log("PlayP2create", playedP2)
+// } else if (player2Hand.length==0){
+//   console.log("Player2 out of cards")
+  
+// } 
 // }
+
+function warWinner () {
+  if (playedP1[0]["score"] > playedP2[0]["score"]) {
+      console.log(player1, "wins.", player1,"played ", playedP1[0], "and",player2, "played ", playedP2[0])
+      player1Hand.push(playedP1[0])
+      player1Hand.push(playedP2[0])
+      // while (warHand.length>0) {
+      //   player1Hand.push(warHand[0])
+      // }
+      // warHand.length=0
+      playedP1.pop()
+      playedP2.pop()
+      console.log(player1, "has", player1Hand.length, " cards remaining.", player2, "has ", player2Hand.length, "cards remaining.")
+  } else if (playedP2[0]["score"] > playedP1[0]["score"]) {
+      console.log(player2, "wins.", player2, "played ", playedP2[0], "and", player1, "played", playedP1[0])
+      player2Hand.push(playedP1[0])
+      player2Hand.push(playedP2[0])
+      player2Hand.concat(warHand)
+      // while (warHand.length>0) {
+      //   player2Hand.push(warHand[0])
+      // }
+      // warHand.length=0
+      playedP1.pop()
+      playedP2.pop()
+      
+      console.log(player2, "has", player2Hand.length, "cards remaining.", player1, "has", player1Hand.length, "cards remaining.")
+  } else {
+      console.log("It is a tie", player2, ". played ", playedP2[0], "and", player1, "played", playedP1[0], ". War!")
+      warHand.push(playedP1[0])
+      warHand.push(playedP2[0])
+      playedP1.pop()
+      playedP2.pop()
+      warHand.push(player1Hand[0])
+      warHand.push(player1Hand[1])
+      warHand.push(player1Hand[2])
+      player1Hand.splice(0,3)
+      warHand.push(player2Hand[0])
+      warHand.push(player2Hand[1])
+      warHand.push(player2Hand[2])
+      player2Hand.splice(0,3)
+  }
+}
